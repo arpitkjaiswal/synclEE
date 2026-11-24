@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "synclEE",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Save accepted coding submissions to a GitHub repository you choose.",
   "permissions": ["storage"],
   "host_permissions": ["https://github.com/*", "https://api.github.com/*"],

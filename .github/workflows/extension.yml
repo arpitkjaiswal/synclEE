@@ -63,6 +63,6 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: synclEE
-      - run: gh release create "$GITHUB_REF_NAME" synclEE.zip --verify-tag --generate-notes
+      - run: gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" synclEE.zip --verify-tag --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
