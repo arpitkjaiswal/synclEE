@@ -1,0 +1,18 @@
+:root { color-scheme: dark; font: 14px system-ui, sans-serif; background: #101622; color: #eef3fb; }
+body { margin: 0; min-width: 340px; }
+main { padding: 22px; }
+h1 { font-size: 28px; margin: 0; color: #97e8c7; }
+h2 { font-size: 14px; }
+.intro, #last { color: #aebcce; }
+form, label { display: block; }
+label { margin: 12px 0 5px; }
+input, button { box-sizing: border-box; width: 100%; padding: 9px; border: 1px solid #445370; border-radius: 6px; font: inherit; }
+input { background: #182233; }
+button { margin-top: 10px; background: #97e8c7; color: #12261d; font-weight: 700; cursor: pointer; }
+button:disabled { opacity: .55; cursor: wait; }
+a { color: #97e8c7; }
+dl { display: grid; grid-template-columns: 1fr auto; gap: 5px; }
+dd { margin: 0; font-variant-numeric: tabular-nums; }
+#status { overflow-wrap: anywhere; }
+
+[hidden] { display: none !important; }

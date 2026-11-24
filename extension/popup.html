@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>synclEE</title>
+<link rel="stylesheet" href="popup.css">
+<main>
+  <h1>synclEE</h1>
+  <p class="intro">Send accepted solutions to GitHub.</p>
+  <form id="settings">
+    <label for="repo">Destination repository</label>
+    <input id="repo" placeholder="owner/solutions" required>
+    <label for="client">GitHub OAuth client ID</label>
+    <input id="client" placeholder="OAuth app client ID" autocomplete="off" required>
+    <button id="connect">Connect GitHub</button>
+  </form>
+  <button id="disconnect" type="button" hidden>Disconnect</button>
+  <section id="device" hidden>
+    <p>Enter <strong id="code"></strong> on GitHub to finish connecting.</p>
+    <a href="https://github.com/login/device" target="_blank" rel="noopener">Open GitHub device activation</a>
+  </section>
+  <p id="status" role="status"></p>
+  <section>
+    <h2>Commits synced on this device</h2>
+    <dl id="stats"></dl>
+    <p id="last"></p>
+  </section>
+</main>
+<script type="module" src="popup.js"></script>
+</html>

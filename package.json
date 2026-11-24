@@ -1,0 +1,9 @@
+{
+  "name": "synclee",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check extension/editor.js && node --check extension/capture.js && node --check extension/sync.js && node --check extension/worker.js && node --check extension/popup.js"
+  }
+}
