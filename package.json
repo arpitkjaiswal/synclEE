@@ -4,6 +4,6 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "check": "node --check extension/editor.js && node --check extension/capture.js && node --check extension/sync.js && node --check extension/worker.js && node --check extension/popup.js"
+    "check": "node --check extension/oauth-config.js && node --check extension/editor.js && node --check extension/capture.js && node --check extension/sync.js && node --check extension/worker.js && node --check extension/popup.js"
   }
 }

@@ -1,3 +1,4 @@
+import {defaultClientId} from "./oauth-config.js";
 import {repositoryName} from "./sync.js";
 
 const byId = id => document.getElementById(id);
@@ -30,9 +31,13 @@ async function refresh() {
 }
 
 const {config} = await chrome.storage.local.get("config");
+byId("client").value = config?.clientId || defaultClientId;
+if (defaultClientId) {
+  byId("client").hidden = true;
+  document.querySelector('label[for="client"]').hidden = true;
+}
 if (config) {
   byId("repo").value = config.repository;
-  byId("client").value = config.clientId;
 }
 
 async function completeDeviceFlow(flow) {
