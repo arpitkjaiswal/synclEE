@@ -2,6 +2,16 @@
 
 A Chrome extension that saves accepted coding solutions to a GitHub repository you choose. It includes submission adapters for LeetCode, CodeChef, HackerRank, and GeeksforGeeks. CodeChef solutions with a detected rating are grouped into 100-point bands. The popup counts successful sync commits made on the current browser profile.
 
+## Screenshots
+
+The popup asks for a destination repository and GitHub OAuth client ID on first use. After connection, it shows the latest sync time and commit count for each platform.
+
+| Connect to GitHub | Sync dashboard |
+| --- | --- |
+| <img src="docs/screenshots/connect.png" width="320" alt="Connection form with fields for a destination repository and OAuth client ID"> | <img src="docs/screenshots/dashboard.png" width="320" alt="Connected dashboard showing one example commit from each of the four platforms"> |
+
+These Chromium screenshots use the extension’s popup with simulated GitHub responses and sample submissions.
+
 ## Run locally
 
 1. Run `npm run check` and `npm test` with Node.js 22 or newer. There are no runtime dependencies to install.
