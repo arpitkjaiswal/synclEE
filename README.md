@@ -24,7 +24,7 @@ The extension requests GitHub's OAuth `repo` scope to support public and private
 
 ## Distribution
 
-CI tests the extension and attaches a ZIP to the workflow run. The workflow also publishes a download page when GitHub Pages is configured to use **GitHub Actions**. For the Chrome Web Store, upload the extension ZIP through the developer dashboard with the required listing and privacy disclosures. Set the Actions repository variable `SYNCLEE_GITHUB_CLIENT_ID` to package a shared Device Flow–enabled OAuth app and skip manual client ID entry. Pushing a version tag publishes the ZIP to GitHub Releases.
+Download the packaged extension from the [synclEE download page](https://arpitkjaiswal.github.io/synclEE/). CI tests and packages the extension. On pushes to `main`, it deploys the page and checks that the public ZIP contains the synclEE manifest. For the Chrome Web Store, upload the extension ZIP through the developer dashboard with the required listing and privacy disclosures. Set the Actions repository variable `SYNCLEE_GITHUB_CLIENT_ID` to package a shared Device Flow–enabled OAuth app and skip manual client ID entry. Pushing a version tag publishes the ZIP to GitHub Releases.
 
 ## Capture behavior
 

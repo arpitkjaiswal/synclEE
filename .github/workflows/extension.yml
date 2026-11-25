@@ -47,12 +47,24 @@ jobs:
     permissions:
       pages: write
       id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/deploy-pages@v4
         id: deployment
+      - name: Verify the published download page and extension
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${SITE_URL%/}/" -o index.html
+          grep -Fq 'href="synclEE.zip"' index.html
+          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${SITE_URL%/}/synclEE.zip" -o synclEE.zip
+          unzip -tq synclEE.zip
+          unzip -p synclEE.zip manifest.json | jq -e '.manifest_version == 3 and .name == "synclEE"'
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
