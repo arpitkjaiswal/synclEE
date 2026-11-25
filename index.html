@@ -1,21 +1,66 @@
 <!doctype html>
 <html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Save accepted coding submissions to your GitHub repository with synclEE.">
-<title>synclEE</title>
-<style>
-:root{color-scheme:dark;font:18px/1.6 system-ui,sans-serif;color:#edf2fa;background:#101622}
-main{max-width:680px;margin:13vh auto;padding:0 24px}
-h1{font-size:clamp(56px,11vw,112px);line-height:1;margin:0;color:#97e8c7;letter-spacing:-.07em}
-a{color:#97e8c7}
-.download{display:inline-block;padding:.55rem .9rem;background:#97e8c7;color:#12261d;border-radius:8px;font-weight:700}
-</style>
-<main>
-  <h1>synclEE</h1>
-  <p>Save accepted solutions from LeetCode, CodeChef, HackerRank, and GeeksforGeeks to your GitHub repository.</p>
-  <a class="download" href="synclEE.zip" download>Download for Chrome</a>
-  <p>Unzip the download, open Chrome’s Extensions page, enable Developer mode, and choose Load unpacked. See the repository for GitHub OAuth setup.</p>
-  <a href="https://github.com/arpitkjaiswal/synclEE">Source and setup instructions</a>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5ee">
+  <meta name="description" content="Save accepted coding solutions from four practice platforms to your own GitHub repository with synclEE.">
+  <title>synclEE — Accepted solutions, saved to GitHub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead wrap">
+  <a class="brand" href="./" aria-label="synclEE home"><span class="mark" aria-hidden="true">↳</span> syncl<span>EE</span></a>
+  <nav aria-label="Main"><a href="#install">Installation</a><a href="https://github.com/arpitkjaiswal/synclEE">GitHub</a></nav>
+</header>
+<main class="wrap">
+  <section class="hero" aria-labelledby="heading">
+    <div class="intro">
+      <p class="format">Chrome extension</p>
+      <h1 id="heading">Accepted code,<br><em>committed.</em></h1>
+      <p class="lede">Keep the solution that passed. synclEE saves it to your GitHub repo when the judge returns an accepted verdict.</p>
+      <a class="download" href="synclEE.zip" download><span aria-hidden="true">↓</span> Download for Chrome</a>
+      <a class="guide" href="#install">How to install</a>
+    </div>
+    <figure class="sheet">
+      <div class="preview-head"><span>Extension preview</span><span class="controls" hidden><button type="button" data-view="dashboard" aria-pressed="true">Dashboard</button><button type="button" data-view="connect" aria-pressed="false">Setup</button></span></div>
+      <div class="board"><img id="popup" src="media/dashboard.png" width="720" height="792" alt="synclEE popup showing one sample commit from each platform"></div>
+      <figcaption id="caption">Sync dashboard · Example submissions</figcaption>
+    </figure>
+  </section>
+  <section class="platforms" aria-labelledby="platform-heading">
+    <h2 id="platform-heading">Works with</h2>
+    <ul><li>LeetCode</li><li>CodeChef</li><li>HackerRank</li><li>GeeksforGeeks</li></ul>
+  </section>
+  <section id="install" class="install" aria-labelledby="install-heading">
+    <div><h2 id="install-heading">Set it up.</h2><p>You’ll need desktop Chrome and a GitHub repository with an initial commit.</p></div>
+    <ol>
+      <li><h3>Load the extension</h3><p>Unzip the download. Open <code>chrome://extensions</code>, turn on Developer mode, then choose <b>Load unpacked</b> and select the extracted folder.</p></li>
+      <li><h3>Connect your repository</h3><p>Enable Device Flow in your <a href="https://github.com/settings/developers">GitHub OAuth app</a>. Enter its client ID and your repository in the popup. Authorize the device code on GitHub, then reopen the popup.</p></li>
+      <li><h3>Submit a solution</h3><p>After an accepted verdict, check the commit in your repo. Identical code skips the extra commit.</p></li>
+    </ol>
+  </section>
 </main>
+<footer class="wrap"><span>synclEE by <a href="https://github.com/arpitkjaiswal">Arpit Jaiswal</a></span><a href="https://github.com/arpitkjaiswal/synclEE/issues">Report an issue</a></footer>
+<script>
+  const views = {
+    dashboard: ['Sync dashboard · Example submissions', 'synclEE popup showing one sample commit from each platform', 792],
+    connect: ['First-time setup · GitHub connection', 'synclEE popup with repository and OAuth client ID fields', 936]
+  };
+  const controls = document.querySelector('.controls');
+  controls.hidden = false;
+  controls.addEventListener('click', event => {
+    const button = event.target.closest('button');
+    if (!button) return;
+    const view = button.dataset.view;
+    const [caption, alt, height] = views[view];
+    const popup = document.querySelector('#popup');
+    popup.src = 'media/' + view + '.png';
+    popup.alt = alt;
+    popup.height = height;
+    document.querySelector('#caption').textContent = caption;
+    for (const option of controls.children) option.setAttribute('aria-pressed', String(option === button));
+  });
+</script>
+</body>
 </html>
