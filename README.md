@@ -4,9 +4,9 @@ A Chrome extension that saves accepted coding solutions to a GitHub repository y
 
 ## Screenshots
 
-[![synclEE download page with the extension’s sync dashboard](docs/screenshots/download-page.png)](https://arpitkjaiswal.github.io/synclEE/)
+[![synclEE download page showing an example accepted LeetCode solution and its GitHub file path](docs/screenshots/download-page.png)](https://arpitkjaiswal.github.io/synclEE/)
 
-Select **Dashboard** or **Setup** on the [download page](https://arpitkjaiswal.github.io/synclEE/) to explore both popup views. The captures use the actual extension UI with simulated GitHub responses and sample submissions.
+Choose a platform on the [download page](https://arpitkjaiswal.github.io/synclEE/) to see a sample solution and its destination file. The installation guide includes **Dashboard** and **Setup** views of the extension. The captures use the actual extension UI with simulated GitHub responses and sample submissions.
 
 ## Run locally
 
