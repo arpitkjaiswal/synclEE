@@ -4,13 +4,9 @@ A Chrome extension that saves accepted coding solutions to a GitHub repository y
 
 ## Screenshots
 
-The popup asks for a destination repository and GitHub OAuth client ID on first use. After connection, it shows the latest sync time and commit count for each platform.
+[![synclEE download page with the extension’s sync dashboard](docs/screenshots/download-page.png)](https://arpitkjaiswal.github.io/synclEE/)
 
-| Connect to GitHub | Sync dashboard |
-| --- | --- |
-| <img src="docs/screenshots/connect.png" width="320" alt="Connection form with fields for a destination repository and OAuth client ID"> | <img src="docs/screenshots/dashboard.png" width="320" alt="Connected dashboard showing one example commit from each of the four platforms"> |
-
-These Chromium screenshots use the extension’s popup with simulated GitHub responses and sample submissions.
+Select **Dashboard** or **Setup** on the [download page](https://arpitkjaiswal.github.io/synclEE/) to explore both popup views. The captures use the actual extension UI with simulated GitHub responses and sample submissions.
 
 ## Run locally
 

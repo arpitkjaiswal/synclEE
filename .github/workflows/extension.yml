@@ -60,9 +60,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp site/index.html published/index.html
+          cp site/index.html site/styles.css published/
+          mkdir -p published/media
+          cp site/media/*.png published/media/
           cd published
-          git add index.html synclEE.zip
+          git add index.html styles.css media synclEE.zip
           if ! git diff --cached --quiet; then
             git -c user.name=github-actions -c user.email=41898282+github-actions[bot]@users.noreply.github.com commit -m "Publish synclEE from $GITHUB_SHA"
             git push origin HEAD:gh-pages
@@ -72,11 +74,15 @@ jobs:
         run: |
           site=https://arpitkjaiswal.github.io/synclEE
           for attempt in {1..30}; do
-            if curl -fsSL "$site/?build=$GITHUB_SHA" -o live.html &&
-               cmp -s live.html site/index.html &&
-               curl -fsSL "$site/synclEE.zip?build=$GITHUB_SHA" -o live.zip &&
-               cmp -s live.zip published/synclEE.zip; then
-              unzip -tq live.zip
+            matches=true
+            for file in index.html styles.css media/dashboard.png media/connect.png synclEE.zip; do
+              if ! curl -fsSL "$site/$file?build=$GITHUB_SHA" -o live-file || ! cmp -s live-file "published/$file"; then
+                matches=false
+                break
+              fi
+            done
+            if [ "$matches" = true ]; then
+              unzip -tq published/synclEE.zip
               exit 0
             fi
             sleep 10
