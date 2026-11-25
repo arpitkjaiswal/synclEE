@@ -3,24 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f5ee">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Save accepted coding solutions from four practice platforms to your own GitHub repository with synclEE.">
   <title>synclEE — Accepted solutions, saved to GitHub</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header class="masthead wrap">
-  <a class="brand" href="./" aria-label="synclEE home"><span class="mark" aria-hidden="true">↳</span> syncl<span>EE</span></a>
-  <nav aria-label="Main"><a href="#install">Installation</a><a href="https://github.com/arpitkjaiswal/synclEE">GitHub</a></nav>
+  <a class="brand" href="./" aria-label="synclEE home"><span class="mark" aria-hidden="true"><i></i><i></i></span>synclEE</a>
+  <nav aria-label="Main"><a href="#examples">Examples</a><a href="#install">Install guide</a><a class="source-link" href="https://github.com/arpitkjaiswal/synclEE">Source code</a></nav>
 </header>
 <main class="wrap">
   <section class="hero" aria-labelledby="heading">
     <div class="intro">
-      <p class="format">Chrome extension</p>
-      <h1 id="heading">Accepted code,<br><em>committed.</em></h1>
-      <p class="lede">Keep the solution that passed. synclEE saves it to your GitHub repo when the judge returns an accepted verdict.</p>
-      <a class="download" href="synclEE.zip" download><span aria-hidden="true">↓</span> Download for Chrome</a>
-      <a class="guide" href="#install">How to install</a>
+      <p class="format"><span aria-hidden="true">&lt;/&gt;</span> Chrome extension</p>
+      <h1 id="heading">Your solutions.<br>Your <em>repository.</em></h1>
+      <p class="lede">Sync accepted submissions from four coding platforms straight to GitHub. Keep the exact code that passed, organized by platform and problem.</p>
+      <div class="actions"><a class="download" href="synclEE.zip" download><span aria-hidden="true">↓</span> Download for Chrome</a>
+      <a class="guide" href="#install">Install guide</a></div>
+    </div>
+    <section class="console" id="examples" aria-label="Example solution files">
+      <div class="console-head"><span class="console-symbol" aria-hidden="true">&gt;_</span> Solution preview <span class="sample">Example</span></div>
+      <div class="switcher" aria-label="Choose a platform">
+        <button type="button" aria-pressed="true">LeetCode</button><button type="button" aria-pressed="false">CodeChef</button><button type="button" aria-pressed="false">HackerRank</button><button type="button" aria-pressed="false">GeeksforGeeks</button>
+      </div>
+      <div class="file"><span aria-hidden="true">#</span> <span id="filename">two-sum.py</span></div>
+      <pre id="editor" aria-label="Example Python code"><code>def two_sum(nums, target):
+    seen = {}
+    for i, n in enumerate(nums):
+        if target - n in seen:
+            return [seen[target - n], i]
+        seen[n] = i</code></pre>
+      <div class="commit"><span class="check" aria-hidden="true">✓</span><div><strong>Accepted</strong><small id="filepath">LeetCode/two-sum.py</small></div></div>
+    </section>
+  </section>
+  <section class="setup-layout" id="install" aria-labelledby="install-heading">
+    <div class="instructions">
+      <h2 id="install-heading">Install synclEE</h2><p>You’ll need desktop Chrome and an initialized GitHub repository.</p>
+    <ol>
+      <li><h3>Load the extension</h3><p>Unzip the download. Open <code>chrome://extensions</code>, turn on Developer mode, then choose <b>Load unpacked</b> and select the extracted folder.</p></li>
+      <li><h3>Connect your repository</h3><p>Enable Device Flow in your <a href="https://github.com/settings/developers">GitHub OAuth app</a>. Enter its client ID and your repository in the popup. Authorize the device code on GitHub, then reopen the popup.</p></li>
+      <li><h3>Submit a solution</h3><p>After an accepted verdict, check the commit in your repo. Identical code skips the extra commit.</p></li>
+    </ol>
     </div>
     <figure class="sheet">
       <div class="preview-head"><span>Extension preview</span><span class="controls" hidden><button type="button" data-view="dashboard" aria-pressed="true">Dashboard</button><button type="button" data-view="connect" aria-pressed="false">Setup</button></span></div>
@@ -28,21 +52,39 @@
       <figcaption id="caption">Sync dashboard · Example submissions</figcaption>
     </figure>
   </section>
-  <section class="platforms" aria-labelledby="platform-heading">
-    <h2 id="platform-heading">Works with</h2>
-    <ul><li>LeetCode</li><li>CodeChef</li><li>HackerRank</li><li>GeeksforGeeks</li></ul>
-  </section>
-  <section id="install" class="install" aria-labelledby="install-heading">
-    <div><h2 id="install-heading">Set it up.</h2><p>You’ll need desktop Chrome and a GitHub repository with an initial commit.</p></div>
-    <ol>
-      <li><h3>Load the extension</h3><p>Unzip the download. Open <code>chrome://extensions</code>, turn on Developer mode, then choose <b>Load unpacked</b> and select the extracted folder.</p></li>
-      <li><h3>Connect your repository</h3><p>Enable Device Flow in your <a href="https://github.com/settings/developers">GitHub OAuth app</a>. Enter its client ID and your repository in the popup. Authorize the device code on GitHub, then reopen the popup.</p></li>
-      <li><h3>Submit a solution</h3><p>After an accepted verdict, check the commit in your repo. Identical code skips the extra commit.</p></li>
-    </ol>
-  </section>
 </main>
 <footer class="wrap"><span>synclEE by <a href="https://github.com/arpitkjaiswal">Arpit Jaiswal</a></span><a href="https://github.com/arpitkjaiswal/synclEE/issues">Report an issue</a></footer>
 <script>
+  const samples = {
+    LeetCode: ['two-sum.py', 'LeetCode/two-sum.py', document.querySelector('#editor').textContent],
+    CodeChef: ['FLOW001.py', 'CodeChef/FLOW001.py', 'cases = int(input())\nfor _ in range(cases):\n    a, b = map(int, input().split())\n    print(a + b)'],
+    HackerRank: ['simple-array-sum.py', 'HackerRank/simple-array-sum.py', 'def simpleArraySum(ar):\n    return sum(ar)'],
+    GeeksforGeeks: ['reverse-an-array.py', 'GeeksforGeeks/reverse-an-array.py', 'class Solution:\n    def reverseArray(self, arr):\n        arr.reverse()']
+  };
+  function showSample(platform) {
+    const [file, path, code] = samples[platform];
+    document.querySelector('#filename').textContent = file;
+    document.querySelector('#filepath').textContent = path;
+    const lines = code.split('\n').map(line => {
+      const row = document.createElement('code');
+      for (const token of line.split(/(\b(?:def|class|for|if|in|return|sum|enumerate|print|range|input|int|map)\b)/g)) {
+        const part = document.createElement('span');
+        if (/^(def|class|for|if|in|return)$/.test(token)) part.className = 'keyword';
+        else if (/^(sum|enumerate|print|range|input|int|map)$/.test(token)) part.className = 'builtin';
+        part.textContent = token;
+        row.append(part);
+      }
+      return row;
+    });
+    document.querySelector('#editor').replaceChildren(...lines);
+    for (const button of document.querySelectorAll('.switcher button')) {
+      button.setAttribute('aria-pressed', String(button.textContent === platform));
+    }
+  }
+  document.querySelector('.switcher').addEventListener('click', event => {
+    if (event.target.matches('button')) showSample(event.target.textContent);
+  });
+  showSample('LeetCode');
   const views = {
     dashboard: ['Sync dashboard · Example submissions', 'synclEE popup showing one sample commit from each platform', 792],
     connect: ['First-time setup · GitHub connection', 'synclEE popup with repository and OAuth client ID fields', 936]
