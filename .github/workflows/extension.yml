@@ -36,35 +36,52 @@ jobs:
         with:
           name: synclEE
           path: site/synclEE.zip
-      - uses: actions/upload-pages-artifact@v3
-        if: github.ref == 'refs/heads/main'
-        with:
-          path: site
   pages:
     if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
     concurrency:
-      group: pages
+      group: synclee-publish
       cancel-in-progress: false
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: write
+      pages: write
     steps:
-      - uses: actions/deploy-pages@v4
-        id: deployment
-      - name: Verify the published download page and extension
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: published
+      - uses: actions/download-artifact@v4
+        with:
+          name: synclEE
+          path: published
+      - name: Publish the tested package on the Pages source branch
         env:
-          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${SITE_URL%/}/" -o index.html
-          grep -Fq 'href="synclEE.zip"' index.html
-          curl --fail --silent --show-error --location --retry 5 --retry-all-errors "${SITE_URL%/}/synclEE.zip" -o synclEE.zip
-          unzip -tq synclEE.zip
-          unzip -p synclEE.zip manifest.json | jq -e '.manifest_version == 3 and .name == "synclEE"'
+          cp site/index.html published/index.html
+          cd published
+          git add index.html synclEE.zip
+          if ! git diff --cached --quiet; then
+            git -c user.name=github-actions -c user.email=41898282+github-actions[bot]@users.noreply.github.com commit -m "Publish synclEE from $GITHUB_SHA"
+            git push origin HEAD:gh-pages
+          fi
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent
+      - name: Verify the public page and ZIP against the build
+        run: |
+          site=https://arpitkjaiswal.github.io/synclEE
+          for attempt in {1..30}; do
+            if curl -fsSL "$site/?build=$GITHUB_SHA" -o live.html &&
+               cmp -s live.html site/index.html &&
+               curl -fsSL "$site/synclEE.zip?build=$GITHUB_SHA" -o live.zip &&
+               cmp -s live.zip published/synclEE.zip; then
+              unzip -tq live.zip
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
